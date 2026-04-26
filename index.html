@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESPC · Portail Numérique</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-950: #051335;
+  --blue-900: #0A2057;
+  --blue-800: #0D2B6B;
+  --blue-700: #1040A0;
+  --blue-600: #1565C0;
+  --blue-500: #1976D2;
+  --blue-400: #42A5F5;
+  --blue-100: #DBEAFE;
+  --blue-50:  #EFF6FF;
+  --white:    #FFFFFF;
+  --gray-50:  #F8FAFC;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-300: #CBD5E1;
+  --gray-400: #94A3B8;
+  --gray-500: #64748B;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-900: #0F172A;
+  --success:  #15803D;
+  --success-bg: #DCFCE7;
+  --danger:   #B91C1C;
+  --danger-bg:#FEE2E2;
+  --warning:  #B45309;
+  --warning-bg:#FEF3C7;
+  --info:     #1D4ED8;
+  --info-bg:  #DBEAFE;
+  --sidebar-w: 256px;
+  --topbar-h:  56px;
+  --radius-sm: 4px;
+  --radius:    8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:    0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  background: var(--gray-50);
+  color: var(--gray-900);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 10px; }
+
+/* ═══════════════════════════════════
+   LOGIN
+═══════════════════════════════════ */
+#login-screen {
+  min-height: 100vh;
+  display: flex;
+  background: var(--white);
+  animation: fadeUp .5s ease;
+}
+
+.login-left {
+  flex: 1;
+  background: var(--blue-900);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.login-left::after {
+  content: '';
+  position: absolute;
+  bottom: -120px; right: -120px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(21,101,192,.5) 0%, transparent 70%);
+}
+
+.login-brand {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 360px;
+}
+
+.login-brand .tagline {
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 36px;
+  margin-bottom: 12px;
+}
+
+.login-brand h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.login-brand p {
+  color: rgba(255,255,255,.55);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.login-divider {
+  width: 40px; height: 2px;
+  background: var(--blue-500);
+  margin: 24px auto;
+}
+
+.login-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.login-stat {
+  text-align: center;
+}
+
+.login-stat .val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--white);
+  display: block;
+}
+
+.login-stat .lbl {
+  font-size: 11px;
+  color: rgba(255,255,255,.45);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+  display: block;
+}
+
+.login-right {
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px;
+  background: var(--white);
+}
+
+.login-right h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 6px;
+}
+
+.login-right .subtitle {
+  color: var(--gray-400);
+  font-size: 13px;
+  margin-bottom: 36px;
+}
+
+.role-select {
+  display: flex;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.role-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.role-btn.active {
+  background: var(--blue-900);
+  color: var(--white);
+}
+
+.role-btn svg { flex-shrink: 0; }
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--gray-900);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  background: var(--white);
+}
+
+.field input:focus {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 3px rgba(21,101,192,.12);
+}
+
+.field input::placeholder { color: var(--gray-300); }
+
+.btn-primary {
+  width: 100%;
+  padding: 13px;
+  background: var(--blue-900);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .3px;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  margin-top: 4px;
+}
+
+.btn-primary:hover {
+  background: var(--blue-800);
+  box-shadow: 0 8px 20px rgba(10,32,87,.25);
+  transform: translateY(-1px);
+}
+
+.demo-note {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--gray-400);
+}
+
+.demo-note a {
+  color: var(--blue-600);
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════
+   APP SHELL
+═══════════════════════════════════ */
+#app {
+  display: none;
+  min-height: 100vh;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--blue-950);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+}
+
+.sb-head {
+  padding: 20px 18px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sb-head .logo-text {
+  overflow: hidden;
+}
+
+.sb-head .logo-text strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+
+.sb-head .logo-text span {
+  display: block;
+  font-size: 10px;
+  color: rgba(255,255,255,.35);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.sb-nav {
+  flex: 1;
+  padding: 12px 10px;
+  overflow-y: auto;
+}
+
+.sb-section {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  padding: 14px 10px 6px;
+}
+
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: rgba(255,255,255,.55);
+  transition: all .18s;
+  margin-bottom: 1px;
+  position: relative;
+}
+
+.sb-item svg {
+  flex-shrink: 0;
+  opacity: .7;
+  transition: opacity .18s;
+}
+
+.sb-item:hover {
+  background: rgba(255,255,255,.06);
+  color: var(--white);
+}
+
+.sb-item:hover svg { opacity: 1; }
+
+.sb-item.active {
+  background: var(--blue-700);
+  color: var(--white);
+  font-weight: 500;
+}
+
+.sb-item.active svg { opacity: 1; }
+
+.sb-badge {
+  margin-left: auto;
+  background: var(--danger);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 20px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.sb-foot {
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.avatar-circle {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--blue-700);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+  font-family: 'Outfit', sans-serif;
+}
+
+.sb-user-info strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.sb-user-info span {
+  font-size: 11px;
+  color: rgba(255,255,255,.35);
+}
+
+.logout-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,.3);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  transition: color .2s;
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn:hover { color: rgba(255,255,255,.8); }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: fixed;
+  left: var(--sidebar-w);
+  right: 0;
+  top: 0;
+  height: var(--topbar-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  z-index: 100;
+  gap: 16px;
+}
+
+.ticker-wrap {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticker-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--danger);
+  flex-shrink: 0;
+}
+
+.pulse-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--danger);
+  animation: pulse 1.6s ease infinite;
+}
+
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+.ticker-scroll {
+  overflow: hidden;
+  flex: 1;
+}
+
+.ticker-inner {
+  display: flex;
+  gap: 56px;
+  animation: ticker 35s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.ticker-item {
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
+.ticker-item strong { color: var(--gray-900); font-weight: 600; }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--gray-500);
+  transition: all .18s;
+  position: relative;
+}
+
+.icon-btn:hover { border-color: var(--blue-400); color: var(--blue-600); }
+
+.icon-btn .badge-dot {
+  position: absolute;
+  top: 7px; right: 7px;
+  width: 7px; height: 7px;
+  background: var(--danger);
+  border-radius: 50%;
+  border: 1.5px solid var(--white);
+}
+
+/* ─── MAIN ─── */
+.main {
+  margin-left: var(--sidebar-w);
+  padding-top: var(--topbar-h);
+  min-height: 100vh;
+}
+
+.page-body {
+  padding: 28px 28px;
+}
+
+/* ─── PAGES ─── */
+.page { display: none; animation: fadeUp .3s ease; }
+.page.active { display: block; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── PAGE HEADER ─── */
+.ph {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ph-title h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--gray-900);
+  line-height: 1.2;
+}
+
+.ph-title p {
+  font-size: 13px;
+  color: var(--gray-400);
+  margin-top: 3px;
+}
+
+.ph-actions { display: flex; gap: 10px; align-items: center; }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: .2px;
+  text-transform: uppercase;
+}
+
+.card-title svg { color: var(--blue-600); }
+
+/* ─── STAT CARDS ─── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+}
+
+.stat:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.stat-accent {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 2px 0 0 2px;
+}
+
+.stat-accent.blue { background: var(--blue-600); }
+.stat-accent.green { background: var(--success); }
+.stat-accent.orange { background: var(--warning); }
+.stat-accent.red { background: var(--danger); }
+
+.stat-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.stat-icon {
+  width: 38px; height: 38px;
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.stat-icon.blue { background: var(--blue-50); color: var(--blue-600); }
+.stat-icon.green { background: var(--success-bg); color: var(--success); }
+.stat-icon.orange { background: var(--warning-bg); color: var(--warning); }
+.stat-icon.red { background: var(--danger-bg); color: var(--danger); }
+
+.stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--gray-900);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.stat-sub {
+  font-size: 12px;
+  color: var(--gray-400);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ─── GRID LAYOUTS ─── */
+.g-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.g-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.g-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+.g-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; margin-bottom: 16px; }
+
+/* ─── TABLE ─── */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tbl thead th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+.tbl tbody td {
+  padding: 13px 14px;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  vertical-align: middle;
+}
+
+.tbl tbody tr:last-child td { border-bottom: none; }
+
+.tbl tbody tr:hover td { background: var(--gray-50); }
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.badge-blue { background: var(--blue-50); color: var(--blue-700); }
+.badge-green { background: var(--success-bg); color: var(--success); }
+.badge-red { background: var(--danger-bg); color: var(--danger); }
+.badge-orange { background: var(--warning-bg); color: var(--warning); }
+.badge-gray { background: var(--gray-100); color: var(--gray-600); }
+
+/* ─── GRADE CELLS ─── */
+.grade-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 48px;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.grade-A { background: var(--success-bg); color: var(--success); }
+.grade-B { background: var(--blue-50); color: var(--blue-700); }
+.grade-C { background: var(--warning-bg); color: var(--warning); }
+.grade-F { background: var(--danger-bg); color: var(--danger); }
+.grade-pending { background: var(--gray-100); color: var(--gray-400); }
+
+/* ─── PROGRESS BAR ─── */
+.prog-bar {
+  height: 4px;
+  background: var(--gray-100);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--blue-600);
+  transition: width 1s ease;
+}
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all .18s;
+  letter-spacing: .1px;
+}
+
+.btn-blue { background: var(--blue-700); color: var(--white); }
+.btn-blue:hover { background: var(--blue-800); box-shadow: 0 4px 12px rgba(13,43,107,.25); transform: translateY(-1px); }
+
+.btn-outline {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-700);
+}
+
+.btn-outline:hover { border-color: var(--blue-400); color: var(--blue-700); }
+
+.btn-sm { padding: 7px 14px; font-size: 12px; }
+
+/* ─── SEARCH ─── */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  width: 220px;
+  transition: border-color .2s;
+}
+
+.search-box:focus-within { border-color: var(--blue-400); background: var(--white); }
+.search-box svg { color: var(--gray-400); flex-shrink: 0; }
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: var(--gray-700);
+  width: 100%;
+}
+
+.search-box input::placeholder { color: var(--gray-400); }
+
+/* ─── SCHEDULE ─── */
+.sched-wrap {
+  overflow-x: auto;
+}
+
+.sched-grid {
+  display: grid;
+  grid-template-columns: 68px repeat(5, 1fr);
+  gap: 3px;
+  min-width: 700px;
+}
+
+.sched-head {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.sched-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gray-400);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.sched-cell {
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  min-height: 72px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+  cursor: pointer;
+}
+
+.sched-cell:hover { transform: scale(1.02); box-shadow: var(--shadow); }
+
+.sched-cell.empty {
+  background: var(--gray-50);
+  border: 1px dashed var(--gray-200);
+}
+
+.sched-cell.c-blue {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-left: 3px solid var(--blue-500);
+}
+
+.sched-cell.c-green {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-left: 3px solid #16A34A;
+}
+
+.sched-cell.c-orange {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-left: 3px solid #D97706;
+}
+
+.sched-cell.c-purple {
+  background: #FAF5FF;
+  border: 1px solid #E9D5FF;
+  border-left: 3px solid #7C3AED;
+}
+
+.sched-cell.c-red {
+  background: var(--danger-bg);
+  border: 1px solid #FECACA;
+  border-left: 3px solid var(--danger);
+}
+
+.sched-cell strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 2px;
+}
+
+.sched-cell .prof { font-size: 11px; color: var(--gray-500); }
+.sched-cell .room {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--blue-600);
+  margin-top: 5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ─── ANNOUNCEMENT ─── */
+.anc-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.anc-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.anc-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.anc-dot.urgent { background: var(--danger); }
+.anc-dot.info { background: var(--blue-500); }
+.anc-dot.exam { background: var(--warning); }
+.anc-dot.event { background: var(--success); }
+
+.anc-body strong { font-size: 14px; font-weight: 600; color: var(--gray-900); display: block; margin-bottom: 3px; }
+.anc-body p { font-size: 13px; color: var(--gray-500); line-height: 1.55; }
+.anc-date { font-size: 11px; color: var(--gray-400); margin-top: 5px; font-family: 'JetBrains Mono', monospace; }
+
+/* ─── FULL ANC ─── */
+.anc-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  border-left-width: 4px;
+}
+
+.anc-card.urgent { border-left-color: var(--danger); }
+.anc-card.info { border-left-color: var(--blue-500); }
+.anc-card.exam { border-left-color: var(--warning); }
+.anc-card.event { border-left-color: var(--success); }
+
+.anc-card-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gray-900); margin-bottom: 10px; }
+.anc-card-body { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 14px; }
+.anc-card-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; padding-left: 20px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 8px; bottom: 0;
+  width: 1px;
+  background: var(--gray-200);
+}
+
+.tl-item { position: relative; margin-bottom: 18px; }
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-dot {
+  position: absolute;
+  left: -17px; top: 4px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--blue-500);
+  background: var(--white);
+}
+
+.tl-dot.now { background: var(--blue-500); }
+
+.tl-item strong { font-size: 13.5px; font-weight: 600; color: var(--gray-900); display: block; margin-bottom: 2px; }
+.tl-item .tl-sub { font-size: 12px; color: var(--gray-500); }
+.tl-item .tl-time { font-size: 11px; color: var(--blue-600); font-family: 'JetBrains Mono', monospace; margin-top: 4px; }
+
+/* ─── COURSE CARDS ─── */
+.course-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all .2s;
+  border-top: 3px solid var(--blue-600);
+}
+
+.course-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.course-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.course-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--gray-900);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.course-meta { font-size: 12px; color: var(--gray-400); margin-bottom: 14px; }
+
+.course-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+/* ─── MODAL ─── */
+.modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(15,23,42,.4);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+
+.modal-bg.open { display: flex; }
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  width: 500px;
+  max-width: 94vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeUp .25s ease;
+}
+
+.modal-head {
+  padding: 22px 26px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.modal-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; }
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  padding: 2px;
+  transition: color .2s;
+}
+
+.modal-close:hover { color: var(--gray-700); }
+
+.modal-body { padding: 18px 26px 26px; }
+
+.modal-footer {
+  padding: 0 26px 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ─── FORM FIELDS ─── */
+.mfield { margin-bottom: 16px; }
+.mfield label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.mfield input, .mfield select, .mfield textarea {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: var(--gray-900);
+  outline: none;
+  transition: border-color .2s;
+  background: var(--white);
+}
+.mfield input:focus, .mfield select:focus, .mfield textarea:focus { border-color: var(--blue-500); }
+.mfield textarea { height: 90px; resize: vertical; }
+.mfield select option { font-family: 'Outfit', sans-serif; }
+
+/* ─── CHART ─── */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 130px;
+  margin-top: 8px;
+}
+
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+.bar {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: var(--blue-100);
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+  min-height: 3px;
+}
+
+.bar:hover { background: var(--blue-400); }
+
+.bar::after {
+  content: attr(data-v);
+  position: absolute;
+  top: -22px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--gray-500);
+  white-space: nowrap;
+}
+
+.bar-lbl { font-size: 10px; color: var(--gray-400); text-align: center; letter-spacing: .3px; }
+
+/* ─── DONUT ─── */
+.donut-legend { display: flex; flex-direction: column; gap: 10px; }
+.dl-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--gray-600); }
+.dl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ─── SEPARATOR ─── */
+.sep { height: 1px; background: var(--gray-100); margin: 16px 0; }
+
+/* ─── DIVIDER TEXT ─── */
+.divider-text {
+  text-align: center;
+  font-size: 11px;
+  color: var(--gray-300);
+  position: relative;
+  margin: 14px 0;
+}
+
+/* ─── EMPTY SPACE ─── */
+.mb-4 { margin-bottom: 16px; }
+.mb-6 { margin-bottom: 24px; }
+.mt-4 { margin-top: 16px; }
+
+/* ─── ESPC LOGO SVG ─── */
+.espc-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .g-2, .g-2-1, .g-3-2 { grid-template-columns: 1fr; }
+  .g-3 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     LOGIN
+══════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-left">
+    <div class="login-brand">
+      <!-- ESPC SVG LOGO (crest + wordmark) -->
+      <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shield shape -->
+        <path d="M55 6 L96 24 L96 60 C96 82 75 100 55 106 C35 100 14 82 14 60 L14 24 Z" fill="#0A2057" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+        <!-- Inner shield border -->
+        <path d="M55 14 L88 29 L88 59 C88 77 70 93 55 98 C40 93 22 77 22 59 L22 29 Z" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+        <!-- Bridge arch – iconic engineering symbol -->
+        <path d="M30 68 Q42 46 55 46 Q68 46 80 68" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Bridge deck -->
+        <line x1="26" y1="68" x2="84" y2="68" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Bridge pillars -->
+        <line x1="41" y1="68" x2="41" y2="74" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="55" y1="68" x2="55" y2="74" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="69" y1="68" x2="69" y2="74" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <!-- Stars top -->
+        <circle cx="55" cy="30" r="2.5" fill="white" opacity=".9"/>
+        <circle cx="47" cy="33" r="1.5" fill="white" opacity=".6"/>
+        <circle cx="63" cy="33" r="1.5" fill="white" opacity=".6"/>
+        <!-- ESPC text -->
+        <text x="55" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-weight="700" fill="white" letter-spacing="3">ESPC</text>
+      </svg>
+
+      <div class="tagline">Portail Numérique Académique</div>
+      <h1>École Supérieure des Ponts et Chaussées</h1>
+      <div class="login-divider"></div>
+      <p>Former des ingénieurs d'excellence pour bâtir l'Afrique de demain. Lomé · Agoè · Kara, Togo.</p>
+
+      <div class="login-stats">
+        <div class="login-stat">
+          <span class="val">+500</span>
+          <span class="lbl">Étudiants</span>
+        </div>
+        <div class="login-stat">
+          <span class="val">5</span>
+          <span class="lbl">Filières</span>
+        </div>
+        <div class="login-stat">
+          <span class="val">Bac+5</span>
+          <span class="lbl">Diplôme</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <h2>Connexion</h2>
+    <p class="subtitle">Portail réservé aux membres de la communauté ESPC</p>
+
+    <div class="role-select">
+      <button class="role-btn active" onclick="setRole('etudiant',this)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        Étudiant
+      </button>
+      <button class="role-btn" onclick="setRole('enseignant',this)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Enseignant
+      </button>
+      <button class="role-btn" onclick="setRole('admin',this)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        Admin
+      </button>
+    </div>
+
+    <div class="field">
+      <label>Matricule / Identifiant</label>
+      <input type="text" id="login-id" placeholder="ex. 2021ESPC0042" value="2021ESPC0042">
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input type="password" id="login-pw" placeholder="••••••••••" value="espc2024">
+    </div>
+
+    <button class="btn-primary" onclick="doLogin()">Accéder au portail</button>
+
+    <p class="demo-note">Compte de démonstration — <a onclick="doLogin()">accès direct</a></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     APP
+══════════════════════════════ -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sb-head">
+      <div class="espc-logo-wrap">
+        <svg width="34" height="34" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M55 6 L96 24 L96 60 C96 82 75 100 55 106 C35 100 14 82 14 60 L14 24 Z" fill="#1040A0"/>
+          <path d="M30 68 Q42 46 55 46 Q68 46 80 68" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <line x1="26" y1="68" x2="84" y2="68" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          <line x1="41" y1="68" x2="41" y2="74" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="55" y1="68" x2="55" y2="74" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="69" y1="68" x2="69" y2="74" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <text x="55" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="700" fill="white" letter-spacing="2">ESPC</text>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <strong>ESPC</strong>
+        <span>Portail Académique</span>
+      </div>
+    </div>
+
+    <div class="sb-nav">
+      <div class="sb-section">Principal</div>
+      <div class="sb-item active" onclick="nav('dashboard',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Tableau de bord
+      </div>
+      <div class="sb-item" onclick="nav('annonces',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Annonces
+        <span class="sb-badge">3</span>
+      </div>
+
+      <div class="sb-section">Académique</div>
+      <div class="sb-item" onclick="nav('cours',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        Mes Cours
+      </div>
+      <div class="sb-item" onclick="nav('emploi',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Emploi du temps
+      </div>
+      <div class="sb-item" onclick="nav('notes',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        Notes &amp; Résultats
+      </div>
+      <div class="sb-item" onclick="nav('examens',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        Examens
+      </div>
+
+      <div class="sb-section" id="adm-lbl" style="display:none">Administration</div>
+      <div class="sb-item admin-item" onclick="nav('etudiants',this)" style="display:none">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Étudiants
+      </div>
+      <div class="sb-item admin-item" onclick="nav('saisie',this)" style="display:none">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Saisie des notes
+      </div>
+
+      <div class="sb-section">Autre</div>
+      <div class="sb-item" onclick="nav('documents',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+        Documents
+      </div>
+      <div class="sb-item" onclick="nav('profil',this)">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon Profil
+      </div>
+    </div>
+
+    <div class="sb-foot">
+      <div class="avatar-circle" id="sb-av">DS</div>
+      <div class="sb-user-info">
+        <strong id="sb-name">SOGLO Davy</strong>
+        <span id="sb-role">GC3 · Étudiant</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" title="Déconnexion">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="ticker-wrap">
+      <div class="ticker-live">
+        <div class="pulse-dot"></div>
+        En direct
+      </div>
+      <div class="ticker-scroll">
+        <div class="ticker-inner">
+          <span class="ticker-item"><strong>Examen RDM</strong> — Salle B201 · Vendredi 26 Avril, 08h00</span>
+          <span class="ticker-item"><strong>Notes disponibles</strong> — Béton Armé CC1 · Consultez la section Notes</span>
+          <span class="ticker-item"><strong>Dépôt rapports de stage</strong> — Date limite : 30 Avril 2025</span>
+          <span class="ticker-item"><strong>Réunion Bureau étudiants</strong> — Amphi A · Mercredi 15h00</span>
+          <span class="ticker-item"><strong>Prix PFE 2025</strong> — Candidature ouverte jusqu'au 15 Mai</span>
+          <span class="ticker-item"><strong>Examen RDM</strong> — Salle B201 · Vendredi 26 Avril, 08h00</span>
+          <span class="ticker-item"><strong>Notes disponibles</strong> — Béton Armé CC1 · Consultez la section Notes</span>
+          <span class="ticker-item"><strong>Dépôt rapports de stage</strong> — Date limite : 30 Avril 2025</span>
+        </div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <div class="icon-btn">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <div class="badge-dot"></div>
+      </div>
+      <div class="icon-btn">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGES -->
+  <main class="main">
+    <div class="page-body">
+
+      <!-- ── DASHBOARD ── -->
+      <div id="pg-dashboard" class="page active">
+        <div class="ph">
+          <div class="ph-title">
+            <h2>Tableau de bord</h2>
+            <p id="dash-sub">Semestre 5 — Génie Civil · Année 2024–2025</p>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm" onclick="nav('annonces',document.querySelector('[onclick*=annonces]'))">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+              Annonces
+            </button>
+            <button class="btn btn-blue btn-sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nouvelle demande
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-accent blue"></div>
+            <div class="stat-top">
+              <div>
+                <div class="stat-val">8</div>
+                <div class="stat-label">Modules</div>
+              </div>
+              <div class="stat-icon blue">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+              </div>
+            </div>
+            <div class="stat-sub">Ce semestre</div>
+          </div>
+          <div class="stat">
+            <div class="stat-accent green"></div>
+            <div class="stat-top">
+              <div>
+                <div class="stat-val">14,8</div>
+                <div class="stat-label">Moyenne /20</div>
+              </div>
+              <div class="stat-icon green">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+            </div>
+            <div class="stat-sub">Mention : Bien</div>
+          </div>
+          <div class="stat">
+            <div class="stat-accent orange"></div>
+            <div class="stat-top">
+              <div>
+                <div class="stat-val">87%</div>
+                <div class="stat-label">Assiduité</div>
+              </div>
+              <div class="stat-icon orange">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="23 11 17 17 14 14"/></svg>
+              </div>
+            </div>
+            <div class="stat-sub">Présence confirmée</div>
+          </div>
+          <div class="stat">
+            <div class="stat-accent red"></div>
+            <div class="stat-top">
+              <div>
+                <div class="stat-val">3</div>
+                <div class="stat-label">Examens</div>
+              </div>
+              <div class="stat-icon red">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+            </div>
+            <div class="stat-sub">Prochain : 26 Avr</div>
+          </div>
+        </div>
+
+        <div class="g-3-2">
+          <!-- Performance chart -->
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Performance par module
+            </div>
+            <div class="bar-chart" id="chart"></div>
+          </div>
+
+          <!-- Today -->
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Aujourd'hui
+            </div>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-dot now"></div>
+                <strong>Béton Armé</strong>
+                <div class="tl-sub">Prof. Mensah · Amphi A</div>
+                <div class="tl-time">08:00 – 10:00</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot"></div>
+                <strong>Mécanique des Sols</strong>
+                <div class="tl-sub">Prof. Agbeko · Salle 204</div>
+                <div class="tl-time">10:30 – 12:30</div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-dot"></div>
+                <strong>TP Topographie</strong>
+                <div class="tl-sub">Prof. Komi · Terrain C</div>
+                <div class="tl-time">14:00 – 17:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="g-2">
+          <!-- Announcements snippet -->
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+              Dernières annonces
+            </div>
+            <div class="anc-item">
+              <div class="anc-dot urgent"></div>
+              <div class="anc-body">
+                <strong>Report examen — Résistance des Matériaux</strong>
+                <p>Avancé au Vendredi 26 Avril, 08h00. Salle B201.</p>
+                <div class="anc-date">Aujourd'hui, 09:15 · Direction pédagogique</div>
+              </div>
+            </div>
+            <div class="anc-item">
+              <div class="anc-dot exam"></div>
+              <div class="anc-body">
+                <strong>Notes CC1 — Béton Armé disponibles</strong>
+                <p>Consultez la section Notes &amp; Résultats. Réclamations avant le 30 Avril.</p>
+                <div class="anc-date">Hier, 16:30 · Prof. Mensah</div>
+              </div>
+            </div>
+            <div class="anc-item">
+              <div class="anc-dot info"></div>
+              <div class="anc-body">
+                <strong>Cours Mécanique des Fluides Ch. 4 en ligne</strong>
+                <p>Document disponible dans la section Documents.</p>
+                <div class="anc-date">22 Avr, 11:00 · Prof. Agbeko</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module progress -->
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Avancement des modules
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:var(--gray-700)">Béton Armé</span><span style="color:var(--gray-500);font-family:'JetBrains Mono',monospace">78%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:78%"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:var(--gray-700)">Mécanique des Sols</span><span style="color:var(--gray-500);font-family:'JetBrains Mono',monospace">85%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:85%;background:var(--success)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:var(--gray-700)">Mécanique des Fluides</span><span style="color:var(--gray-500);font-family:'JetBrains Mono',monospace">65%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:65%;background:#7C3AED"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:var(--gray-700)">Résistance des Matériaux</span><span style="color:var(--gray-500);font-family:'JetBrains Mono',monospace">60%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:60%;background:var(--warning)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:var(--gray-700)">Topographie</span><span style="color:var(--danger);font-family:'JetBrains Mono',monospace">45%</span></div>
+                <div class="prog-bar"><div class="prog-fill" style="width:45%;background:var(--danger)"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ANNONCES ── -->
+      <div id="pg-annonces" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Annonces officielles</h2><p>Informations diffusées par la direction et le corps enseignant</p></div>
+          <div class="ph-actions">
+            <span class="badge badge-red" id="anc-unread">3 non lues</span>
+            <button class="btn btn-blue btn-sm admin-item" style="display:none" onclick="openM('m-anc')">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Publier
+            </button>
+          </div>
+        </div>
+
+        <div class="anc-card urgent mb-4">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="flex:1">
+              <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center">
+                <span class="badge badge-red">Urgent</span>
+                <span class="badge badge-gray">Examen</span>
+                <span class="badge badge-blue">GC3 · GC4</span>
+              </div>
+              <div class="anc-card-title">Report de l'examen de Résistance des Matériaux</div>
+              <div class="anc-card-body">Suite à un empêchement du professeur principal, l'examen de Résistance des Matériaux prévu le Mercredi 24 Avril est avancé au <strong>Vendredi 26 Avril 2025 à 08h00</strong>, Salle B201. Le programme d'évaluation reste inchangé. Les documents non autorisés.</div>
+              <div class="anc-card-meta">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-400)">25 Avr 2025, 09:15 · Direction pédagogique</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anc-card exam mb-4">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="flex:1">
+              <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+                <span class="badge badge-orange">Notes</span>
+                <span class="badge badge-blue">GC3</span>
+              </div>
+              <div class="anc-card-title">Résultats CC1 — Béton Armé publiés</div>
+              <div class="anc-card-body">Les notes du premier contrôle continu de Béton Armé sont désormais disponibles dans la section Notes &amp; Résultats. Les réclamations motivées sont recevables jusqu'au 30 Avril 2025 auprès du secrétariat pédagogique.</div>
+              <div class="anc-card-meta">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-400)">24 Avr 2025, 16:30 · Prof. Mensah</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="anc-card info mb-4">
+          <div style="flex:1">
+            <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+              <span class="badge badge-blue">Document</span>
+              <span class="badge badge-gray">GC3 · GC4</span>
+            </div>
+            <div class="anc-card-title">Mécanique des Fluides — Chapitre 4 en ligne</div>
+            <div class="anc-card-body">Le chapitre 4 du cours de Mécanique des Fluides (Écoulements en charge et en surface libre) est disponible en téléchargement dans la section Documents. Ce chapitre constituera la base du TP du 2 Mai 2025.</div>
+            <div class="anc-card-meta">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-400)">22 Avr 2025, 11:00 · Prof. Agbeko</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="anc-card event">
+          <div style="flex:1">
+            <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+              <span class="badge badge-green">Concours</span>
+              <span class="badge badge-gray">GC5</span>
+            </div>
+            <div class="anc-card-title">Prix d'Excellence PFE 2025 — Candidature ouverte</div>
+            <div class="anc-card-body">L'ESPC lance la candidature au Prix d'Excellence du Projet de Fin d'Études 2025. Les étudiants en 5ème année intéressés doivent soumettre leur dossier complet avant le 15 Mai 2025. Le jury sera composé de professionnels reconnus du secteur BTP de la sous-région.</div>
+            <div class="anc-card-meta">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray-400)">20 Avr 2025, 09:00 · Direction générale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── COURS ── -->
+      <div id="pg-cours" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Mes Cours</h2><p>Semestre 5 — Génie Civil · 8 modules · 24 crédits</p></div>
+          <div class="ph-actions">
+            <div class="search-box">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Rechercher un cours">
+            </div>
+          </div>
+        </div>
+        <div class="g-3">
+          <div class="course-card" style="border-top-color:#1565C0">
+            <div class="course-code">GC3-BA · 4 crédits</div>
+            <div class="course-name">Béton Armé</div>
+            <div class="course-meta">Prof. Mensah · Lun & Mer, 08h–10h</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:78%"></div></div>
+            <div class="course-footer">
+              <span style="font-size:12px;color:var(--gray-400)">78% du programme</span>
+              <span class="badge badge-blue">Moy. 15,2</span>
+            </div>
+          </div>
+          <div class="course-card" style="border-top-color:#15803D">
+            <div class="course-code">GC3-MS · 3 crédits</div>
+            <div class="course-name">Mécanique des Sols</div>
+            <div class="course-meta">Prof. Agbeko · Mer, 14h–16h</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:85%;background:var(--success)"></div></div>
+            <div class="course-footer">
+              <span style="font-size:12px;color:var(--gray-400)">85% du programme</span>
+              <span class="badge badge-green">Moy. 16,0</span>
+            </div>
+          </div>
+          <div class="course-card" style="border-top-color:#7C3AED">
+            <div class="course-code">GC3-MF · 3 crédits</div>
+            <div class="course-name">Mécanique des Fluides</div>
+            <div class="course-meta">Prof. Agbeko · Lun, 14h–16h</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:65%;background:#7C3AED"></div></div>
+            <div class="course-footer">
+              <span style="font-size:12px;color:var(--gray-400)">65% du programme</span>
+              <span style="background:#FAF5FF;color:#7C3AED" class="badge">Moy. 14,5</span>
+            </div>
+          </div>
+          <div class="course-card" style="border-top-color:#D97706">
+            <div class="course-code">GC3-RDM · 4 crédits</div>
+            <div class="course-name">Résistance des Matériaux</div>
+            <div class="course-meta">Prof. Akpata · Mar & Jeu, 10h–12h</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:60%;background:var(--warning)"></div></div>
+            <div class="course-footer">
+              <span style="font-size:12px;color:var(--gray-400)">60% du programme</span>
+              <span class="badge badge-orange">Moy. 12,8</span>
+            </div>
+          </div>
+          <div class="course-card" style="border-top-color:#B91C1C">
+            <div class="course-code">GC3-HYD · 3 crédits</div>
+            <div class="course-name">Hydraulique</div>
+            <div class="course-meta">Prof. Bossa · Ven, 08h–10h</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:70%;background:var(--danger)"></div></div>
+            <div class="course-footer">
+              <span style="font-size:12px;color:var(--gray-400)">70% du programme</span>
+              <span class="badge badge-red">Moy. 13,8</span>
+            </div>
+          </div>
+          <div class="course-card" style="border-top-color:#0891B2">
+            <div class="course-code">GC3-TOP · 3 crédits</div>
+            <div class="course-name">Topographie</div>
+            <div class="course-meta">Prof. Komi · Jeu, 14h–17h</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:45%;background:#0891B2"></div></div>
+            <div class="course-footer">
+              <span style="font-size:12px;color:var(--gray-400)">45% du programme</span>
+              <span style="background:#ECFEFF;color:#0891B2" class="badge">Moy. 11,5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EMPLOI ── -->
+      <div id="pg-emploi" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Emploi du temps</h2><p>Semaine du 22 – 26 Avril 2025 · Classe GC3</p></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Imprimer
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="sched-wrap">
+            <div class="sched-grid">
+              <div></div>
+              <div class="sched-head">Lundi 22</div>
+              <div class="sched-head">Mardi 23</div>
+              <div class="sched-head">Mercredi 24</div>
+              <div class="sched-head">Jeudi 25</div>
+              <div class="sched-head">Vendredi 26</div>
+
+              <div class="sched-time">08h00</div>
+              <div class="sched-cell c-blue"><strong>Béton Armé</strong><div class="prof">Prof. Mensah</div><div class="room">AMPHI A</div></div>
+              <div class="sched-cell empty"></div>
+              <div class="sched-cell c-blue"><strong>Béton Armé</strong><div class="prof">Prof. Mensah</div><div class="room">AMPHI A</div></div>
+              <div class="sched-cell empty"></div>
+              <div class="sched-cell c-red"><strong>EXAMEN — RDM</strong><div class="prof">Prof. Akpata</div><div class="room">SALLE B201</div></div>
+
+              <div class="sched-time">10h30</div>
+              <div class="sched-cell empty"></div>
+              <div class="sched-cell c-orange"><strong>Résistance des Mat.</strong><div class="prof">Prof. Akpata</div><div class="room">SALLE 204</div></div>
+              <div class="sched-cell empty"></div>
+              <div class="sched-cell c-orange"><strong>Résistance des Mat.</strong><div class="prof">Prof. Akpata</div><div class="room">SALLE 204</div></div>
+              <div class="sched-cell empty"></div>
+
+              <div class="sched-time">14h00</div>
+              <div class="sched-cell c-green"><strong>Méc. Fluides</strong><div class="prof">Prof. Agbeko</div><div class="room">SALLE 108</div></div>
+              <div class="sched-cell empty"></div>
+              <div class="sched-cell c-purple"><strong>Méc. des Sols</strong><div class="prof">Prof. Agbeko</div><div class="room">LABO GC</div></div>
+              <div class="sched-cell c-green"><strong>Topographie</strong><div class="prof">Prof. Komi</div><div class="room">TERRAIN C</div></div>
+              <div class="sched-cell empty"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOTES ── -->
+      <div id="pg-notes" class="page">
+        <div class="ph">
+          <div class="ph-title">
+            <h2>Notes &amp; Résultats</h2>
+            <p>Semestre 5 — Moyenne générale : <strong style="color:var(--blue-700)">14,8 / 20</strong> · Mention : Bien</p>
+          </div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exporter PDF
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Relevé de notes — Semestre 5
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Matière</th>
+                <th>Crédits</th>
+                <th>CC1</th>
+                <th>CC2</th>
+                <th>Examen</th>
+                <th>Moyenne</th>
+                <th>Mention</th>
+                <th>Validation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div style="font-weight:600;color:var(--gray-900)">Béton Armé</div><div style="font-size:11px;color:var(--gray-400)">Prof. Mensah</div></td>
+                <td><span class="badge badge-blue">4</span></td>
+                <td><span class="grade-val grade-A">16</span></td>
+                <td><span class="grade-val grade-A">15</span></td>
+                <td><span class="grade-val grade-A">15</span></td>
+                <td><strong style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--gray-900)">15,2</strong></td>
+                <td><span class="badge badge-blue">Bien</span></td>
+                <td><span class="badge badge-green">Validé</span></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;color:var(--gray-900)">Mécanique des Sols</div><div style="font-size:11px;color:var(--gray-400)">Prof. Agbeko</div></td>
+                <td><span class="badge badge-blue">3</span></td>
+                <td><span class="grade-val grade-A">17</span></td>
+                <td><span class="grade-val grade-A">16</span></td>
+                <td><span class="grade-val grade-A">15</span></td>
+                <td><strong style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--gray-900)">16,0</strong></td>
+                <td><span class="badge badge-blue">Très Bien</span></td>
+                <td><span class="badge badge-green">Validé</span></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;color:var(--gray-900)">Mécanique des Fluides</div><div style="font-size:11px;color:var(--gray-400)">Prof. Agbeko</div></td>
+                <td><span class="badge badge-blue">3</span></td>
+                <td><span class="grade-val grade-B">14</span></td>
+                <td><span class="grade-val grade-B">13</span></td>
+                <td><span class="grade-val grade-A">15</span></td>
+                <td><strong style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--gray-900)">14,5</strong></td>
+                <td><span class="badge badge-blue">Bien</span></td>
+                <td><span class="badge badge-green">Validé</span></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;color:var(--gray-900)">Résistance des Matériaux</div><div style="font-size:11px;color:var(--gray-400)">Prof. Akpata</div></td>
+                <td><span class="badge badge-blue">4</span></td>
+                <td><span class="grade-val grade-B">13</span></td>
+                <td><span class="grade-val grade-B">12</span></td>
+                <td><span class="grade-val grade-pending">—</span></td>
+                <td><strong style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--gray-900)">12,8</strong></td>
+                <td><span class="badge badge-orange">Assez Bien</span></td>
+                <td><span class="badge badge-orange">En cours</span></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;color:var(--gray-900)">Hydraulique</div><div style="font-size:11px;color:var(--gray-400)">Prof. Bossa</div></td>
+                <td><span class="badge badge-blue">3</span></td>
+                <td><span class="grade-val grade-B">14</span></td>
+                <td><span class="grade-val grade-B">13</span></td>
+                <td><span class="grade-val grade-B">14</span></td>
+                <td><strong style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--gray-900)">13,8</strong></td>
+                <td><span class="badge badge-blue">Bien</span></td>
+                <td><span class="badge badge-green">Validé</span></td>
+              </tr>
+              <tr>
+                <td><div style="font-weight:600;color:var(--gray-900)">Topographie</div><div style="font-size:11px;color:var(--gray-400)">Prof. Komi</div></td>
+                <td><span class="badge badge-blue">3</span></td>
+                <td><span class="grade-val grade-C">11</span></td>
+                <td><span class="grade-val grade-C">12</span></td>
+                <td><span class="grade-val grade-pending">—</span></td>
+                <td><strong style="font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--danger)">11,5</strong></td>
+                <td><span class="badge badge-red">Passable</span></td>
+                <td><span class="badge badge-orange">En cours</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── EXAMENS ── -->
+      <div id="pg-examens" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Sessions d'examen</h2><p>Calendrier officiel — Semestre 5</p></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="card" style="border-left:4px solid var(--danger)">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+              <div>
+                <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+                  <span class="badge badge-red">Dans 1 jour</span>
+                  <span class="badge badge-gray">GC3</span>
+                  <span class="badge badge-gray">Documents non autorisés</span>
+                </div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:4px">Résistance des Matériaux</div>
+                <div style="font-size:13px;color:var(--gray-500)">Prof. Akpata · Salle B201 · Durée : 3h00</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--gray-900)">Ven. 26 Avr.</div>
+                <div style="font-size:14px;color:var(--gray-400);margin-top:2px">08:00 – 11:00</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="border-left:4px solid var(--warning)">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+              <div>
+                <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+                  <span class="badge badge-orange">Dans 11 jours</span>
+                  <span class="badge badge-gray">GC3</span>
+                  <span class="badge badge-gray">Formulaire autorisé</span>
+                </div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:4px">Mécanique des Fluides</div>
+                <div style="font-size:13px;color:var(--gray-500)">Prof. Agbeko · Amphi A · Durée : 2h00</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--gray-900)">Mer. 7 Mai</div>
+                <div style="font-size:14px;color:var(--gray-400);margin-top:2px">10:00 – 12:00</div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="border-left:4px solid var(--blue-500)">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+              <div>
+                <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+                  <span class="badge badge-blue">Dans 17 jours</span>
+                  <span class="badge badge-gray">GC3</span>
+                  <span class="badge badge-gray">Matériel fourni</span>
+                </div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:4px">Topographie — Épreuve terrain</div>
+                <div style="font-size:13px;color:var(--gray-500)">Prof. Komi · Terrain C · Durée : 4h00</div>
+              </div>
+              <div style="text-align:right;flex-shrink:0">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--gray-900)">Lun. 13 Mai</div>
+                <div style="font-size:14px;color:var(--gray-400);margin-top:2px">08:00 – 12:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ÉTUDIANTS (Admin) ── -->
+      <div id="pg-etudiants" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Gestion des étudiants</h2><p>GC3 — 42 étudiants inscrits · Année 2024–2025</p></div>
+          <div class="ph-actions">
+            <div class="search-box">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Nom, matricule...">
+            </div>
+            <button class="btn btn-blue btn-sm">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Ajouter
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead>
+              <tr><th>Étudiant</th><th>Matricule</th><th>Filière</th><th>Moyenne</th><th>Assiduité</th><th>Statut</th><th>Action</th></tr>
+            </thead>
+            <tbody id="tbl-students"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── SAISIE NOTES ── -->
+      <div id="pg-saisie" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Saisie des notes</h2><p>Encodage officiel des résultats académiques</p></div>
+          <div class="ph-actions">
+            <button class="btn btn-blue btn-sm" onclick="alert('Notes enregistrées avec succès. Les étudiants seront notifiés.')">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+              Enregistrer
+            </button>
+          </div>
+        </div>
+        <div class="g-2" style="margin-bottom:20px">
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              Paramètres de saisie
+            </div>
+            <div class="mfield">
+              <label>Matière</label>
+              <select><option>Béton Armé</option><option>Résistance des Matériaux</option><option>Mécanique des Fluides</option><option>Mécanique des Sols</option><option>Hydraulique</option><option>Topographie</option></select>
+            </div>
+            <div class="mfield">
+              <label>Type d'évaluation</label>
+              <select><option>Contrôle Continu 1 (CC1)</option><option>Contrôle Continu 2 (CC2)</option><option>Examen Final</option><option>TP / Rapport</option></select>
+            </div>
+            <div class="mfield">
+              <label>Classe</label>
+              <select><option>GC3</option><option>GC4</option><option>GC5</option></select>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Aperçu statistique
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="padding:14px;background:var(--blue-50);border-radius:var(--radius);text-align:center">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--blue-700)">13,4</div>
+                <div style="font-size:11px;color:var(--gray-500);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Moy. classe</div>
+              </div>
+              <div style="padding:14px;background:var(--success-bg);border-radius:var(--radius);text-align:center">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--success)">89%</div>
+                <div style="font-size:11px;color:var(--gray-500);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Taux réussite</div>
+              </div>
+              <div style="padding:14px;background:var(--warning-bg);border-radius:var(--radius);text-align:center">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--warning)">19</div>
+                <div style="font-size:11px;color:var(--gray-500);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Max</div>
+              </div>
+              <div style="padding:14px;background:var(--danger-bg);border-radius:var(--radius);text-align:center">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--danger)">07</div>
+                <div style="font-size:11px;color:var(--gray-500);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Min</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Grille de saisie
+          </div>
+          <table class="tbl">
+            <thead><tr><th>#</th><th>Étudiant</th><th>Matricule</th><th>Note /20</th><th>Appréciation</th></tr></thead>
+            <tbody id="tbl-saisie"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── DOCUMENTS ── -->
+      <div id="pg-documents" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Documents</h2><p>Cours, supports pédagogiques et ressources officielles</p></div>
+          <div class="ph-actions">
+            <div class="search-box">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Rechercher">
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <table class="tbl">
+            <thead>
+              <tr><th>Document</th><th>Module</th><th>Type</th><th>Taille</th><th>Date</th><th>Accès</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:32px;height:32px;background:var(--danger-bg);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="14" height="14" fill="none" stroke="var(--danger)" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div><div style="font-weight:600;font-size:13px">Béton Armé — Chapitres 1 à 3</div><div style="font-size:11px;color:var(--gray-400)">Prof. Mensah</div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-blue">GC3-BA</span></td>
+                <td><span class="badge badge-gray">Cours PDF</span></td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-400)">4,2 Mo</td>
+                <td style="font-size:12px;color:var(--gray-400)">15 Mar 2025</td>
+                <td><button class="btn btn-outline btn-sm" onclick="alert('Téléchargement : Béton Armé Ch1-3.pdf')">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  PDF</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:32px;height:32px;background:var(--blue-50);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="14" height="14" fill="none" stroke="var(--blue-600)" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div><div style="font-weight:600;font-size:13px">Méc. Fluides — Chapitre 4 <span class="badge badge-green" style="font-size:10px;margin-left:6px">Nouveau</span></div><div style="font-size:11px;color:var(--gray-400)">Prof. Agbeko</div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-blue">GC3-MF</span></td>
+                <td><span class="badge badge-gray">Cours PDF</span></td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-400)">2,8 Mo</td>
+                <td style="font-size:12px;color:var(--gray-400)">22 Avr 2025</td>
+                <td><button class="btn btn-outline btn-sm" onclick="alert('Téléchargement : MF-Ch4.pdf')">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  PDF</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:32px;height:32px;background:var(--warning-bg);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="14" height="14" fill="none" stroke="var(--warning)" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div><div style="font-weight:600;font-size:13px">Annales RDM — 2020–2024</div><div style="font-size:11px;color:var(--gray-400)">Bibliothèque ESPC</div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-blue">GC3-RDM</span></td>
+                <td><span class="badge badge-gray">Annales</span></td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-400)">8,1 Mo</td>
+                <td style="font-size:12px;color:var(--gray-400)">01 Jan 2025</td>
+                <td><button class="btn btn-outline btn-sm" onclick="alert('Téléchargement : Annales-RDM.pdf')">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  PDF</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="width:32px;height:32px;background:var(--success-bg);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="14" height="14" fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                    <div><div style="font-weight:600;font-size:13px">Formulaire Hydraulique</div><div style="font-size:11px;color:var(--gray-400)">Prof. Bossa</div></div>
+                  </div>
+                </td>
+                <td><span class="badge badge-blue">GC3-HYD</span></td>
+                <td><span class="badge badge-gray">Formulaire</span></td>
+                <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-400)">0,5 Mo</td>
+                <td style="font-size:12px;color:var(--gray-400)">10 Mar 2025</td>
+                <td><button class="btn btn-outline btn-sm" onclick="alert('Téléchargement : Formulaire-HYD.pdf')">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  PDF</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── PROFIL ── -->
+      <div id="pg-profil" class="page">
+        <div class="ph">
+          <div class="ph-title"><h2>Mon Profil</h2><p>Informations personnelles et académiques</p></div>
+          <div class="ph-actions">
+            <button class="btn btn-outline btn-sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Modifier
+            </button>
+          </div>
+        </div>
+        <div class="g-2">
+          <div class="card">
+            <div style="display:flex;gap:20px;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--gray-100);margin-bottom:20px">
+              <div class="avatar-circle" style="width:64px;height:64px;font-size:22px;background:var(--blue-900)" id="prof-av">DS</div>
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--gray-900)" id="prof-name">SOGLO Davy</div>
+                <div style="font-size:13px;color:var(--gray-400);margin-top:2px">Matricule : <span style="font-family:'JetBrains Mono',monospace">2021ESPC0042</span></div>
+                <div style="margin-top:8px"><span class="badge badge-green">Actif</span></div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div style="padding:12px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Filière</div>
+                <div style="font-weight:600;font-size:13px">Génie Civil</div>
+              </div>
+              <div style="padding:12px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Niveau</div>
+                <div style="font-weight:600;font-size:13px">3ème Année (L3)</div>
+              </div>
+              <div style="padding:12px;background:var(--gray-50);border-radius:var(--radius)">
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Semestre</div>
+                <div style="font-weight:600;font-size:13px">Semestre 5</div>
+              </div>
+              <div style="padding:12px;background:var(--blue-50);border-radius:var(--radius)">
+                <div style="font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Crédits</div>
+                <div style="font-weight:600;font-size:13px;color:var(--blue-700)">102 / 180</div>
+              </div>
+            </div>
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--gray-100)">
+              <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px">davy.soglo@espc.tg</div>
+              <div style="font-size:12px;color:var(--gray-500);margin-bottom:6px">+228 91 23 45 67</div>
+              <div style="font-size:12px;color:var(--gray-500)">Lomé, Togo</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Bilan académique
+            </div>
+            <div style="text-align:center;margin-bottom:24px">
+              <svg width="130" height="130" viewBox="0 0 130 130">
+                <circle cx="65" cy="65" r="50" fill="none" stroke="var(--gray-100)" stroke-width="14"/>
+                <circle cx="65" cy="65" r="50" fill="none" stroke="var(--blue-600)" stroke-width="14"
+                  stroke-dasharray="220 94" stroke-dashoffset="-78" stroke-linecap="round"/>
+                <circle cx="65" cy="65" r="50" fill="none" stroke="var(--success)" stroke-width="14"
+                  stroke-dasharray="50 264" stroke-dashoffset="142" stroke-linecap="round"/>
+                <circle cx="65" cy="65" r="50" fill="none" stroke="var(--warning)" stroke-width="14"
+                  stroke-dasharray="44 270" stroke-dashoffset="192" stroke-linecap="round"/>
+                <text x="65" y="60" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="18" font-weight="500" fill="var(--gray-900)">14,8</text>
+                <text x="65" y="76" text-anchor="middle" font-family="Outfit, sans-serif" font-size="10" fill="var(--gray-400)" letter-spacing="1">MOYENNE</text>
+              </svg>
+            </div>
+            <div class="donut-legend">
+              <div class="dl-item"><div class="dl-dot" style="background:var(--blue-600)"></div>Modules validés (6)</div>
+              <div class="dl-item"><div class="dl-dot" style="background:var(--success)"></div>En cours de validation (2)</div>
+              <div class="dl-item"><div class="dl-dot" style="background:var(--warning)"></div>À surveiller (1)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-body -->
+  </main>
+</div><!-- /app -->
+
+<!-- MODAL — Nouvelle annonce -->
+<div class="modal-bg" id="m-anc" onclick="if(event.target===this)closeM('m-anc')">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Publier une annonce</h3>
+      <button class="modal-close" onclick="closeM('m-anc')">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="mfield"><label>Titre</label><input type="text" placeholder="Titre de l'annonce"></div>
+      <div class="mfield"><label>Type</label><select><option>Information</option><option>Urgent</option><option>Examen</option><option>Événement</option></select></div>
+      <div class="mfield"><label>Destinataires</label><select><option>Toutes les classes</option><option>GC3</option><option>GC4</option><option>GC5</option></select></div>
+      <div class="mfield"><label>Message</label><textarea placeholder="Contenu de l'annonce..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeM('m-anc')">Annuler</button>
+      <button class="btn btn-blue" onclick="closeM('m-anc');alert('Annonce publiée. Les étudiants concernés sont notifiés.')">Publier</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ──────────── STATE ──────────── */
+let role = 'etudiant';
+
+const students = [
+  {n:'SOGLO Davy',       m:'2021ESPC0042', f:'GC3', avg:14.8, att:'87%', ok:true},
+  {n:'AMEVOR Akossiwa',  m:'2021ESPC0043', f:'GC3', avg:16.2, att:'92%', ok:true},
+  {n:'KPODZO Edem',      m:'2021ESPC0044', f:'GC3', avg:11.4, att:'74%', ok:false},
+  {n:'MENSAH Kofi',      m:'2021ESPC0045', f:'GC3', avg:13.9, att:'88%', ok:true},
+  {n:'AGBEKO Yawa',      m:'2021ESPC0046', f:'GC3', avg:17.1, att:'95%', ok:true},
+  {n:'TOSSOU Kwame',     m:'2021ESPC0047', f:'GC3', avg:9.8,  att:'65%', ok:false},
+  {n:'DOSSOU Afia',      m:'2021ESPC0048', f:'GC3', avg:15.5, att:'90%', ok:true},
+];
+
+/* ──────────── AUTH ──────────── */
+function setRole(r, el) {
+  role = r;
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim();
+  if (!id) { alert('Veuillez saisir votre identifiant.'); return; }
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+
+  if (role !== 'etudiant') {
+    document.getElementById('adm-lbl').style.display = 'block';
+    document.querySelectorAll('.admin-item').forEach(el => el.style.display = 'flex');
+    if (role === 'admin') {
+      document.getElementById('sb-name').textContent = 'Dir. A. Gbeganon';
+      document.getElementById('sb-role').textContent = 'Directeur — Administration';
+      document.getElementById('sb-av').textContent = 'AG';
+      document.getElementById('dash-sub').textContent = 'Tableau de bord — Administration ESPC';
+    } else {
+      document.getElementById('sb-name').textContent = 'Prof. M. Mensah';
+      document.getElementById('sb-role').textContent = 'Enseignant — Béton Armé';
+      document.getElementById('sb-av').textContent = 'MM';
+      document.getElementById('dash-sub').textContent = 'Tableau de bord — Corps enseignant';
+    }
+  }
+  buildStudentsTable();
+  buildSaisieTable();
+  buildChart();
+}
+
+function doLogout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.querySelectorAll('.role-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.getElementById('adm-lbl').style.display = 'none';
+  document.querySelectorAll('.admin-item').forEach(el => el.style.display = 'none');
+  document.getElementById('sb-name').textContent = 'SOGLO Davy';
+  document.getElementById('sb-role').textContent = 'GC3 · Étudiant';
+  document.getElementById('sb-av').textContent = 'DS';
+  role = 'etudiant';
+  document.getElementById('login-id').value = '2021ESPC0042';
+}
+
+/* ──────────── NAV ──────────── */
+function nav(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('pg-' + id).classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+/* ──────────── MODAL ──────────── */
+function openM(id) { document.getElementById(id).classList.add('open'); }
+function closeM(id) { document.getElementById(id).classList.remove('open'); }
+
+/* ──────────── CHART ──────────── */
+function buildChart() {
+  const data = [
+    {l:'Béton Armé', v:76},
+    {l:'Méc. Sols',  v:80},
+    {l:'RDM',        v:64},
+    {l:'Hydraulique',v:69},
+    {l:'Topographie',v:46},
+    {l:'Méc. Fluides',v:66},
+  ];
+  const max = 100;
+  document.getElementById('chart').innerHTML = data.map(d => `
+    <div class="bar-col">
+      <div class="bar" style="height:${(d.v/max)*122}px" data-v="${d.v}%"></div>
+      <div class="bar-lbl">${d.l}</div>
+    </div>`).join('');
+}
+
+/* ──────────── STUDENTS TABLE ──────────── */
+function buildStudentsTable() {
+  const colors = ['#1040A0','#15803D','#7C3AED','#D97706','#B91C1C','#0891B2','#9C4221'];
+  document.getElementById('tbl-students').innerHTML = students.map((s,i) => {
+    const grade = s.avg >= 14 ? 'grade-A' : s.avg >= 12 ? 'grade-B' : s.avg >= 10 ? 'grade-C' : 'grade-F';
+    return `<tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:32px;height:32px;border-radius:50%;background:${colors[i]};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0">${s.n.split(' ').map(x=>x[0]).join('')}</div>
+          <div style="font-weight:600;font-size:13px">${s.n}</div>
+        </div>
+      </td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-500)">${s.m}</td>
+      <td>${s.f}</td>
+      <td><span class="grade-val ${grade}">${s.avg.toFixed(1)}</span></td>
+      <td><span style="font-family:'JetBrains Mono',monospace;font-size:13px">${s.att}</span></td>
+      <td><span class="badge ${s.ok?'badge-green':'badge-red'}">${s.ok?'Régulier':'Attention'}</span></td>
+      <td><button class="btn btn-outline btn-sm" onclick="alert('Profil étudiant : ${s.n}')">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Voir</button></td>
+    </tr>`;
+  }).join('');
+}
+
+/* ──────────── SAISIE TABLE ──────────── */
+function buildSaisieTable() {
+  document.getElementById('tbl-saisie').innerHTML = students.map((s,i) => `
+    <tr>
+      <td style="color:var(--gray-400);font-family:'JetBrains Mono',monospace;font-size:12px">${String(i+1).padStart(2,'0')}</td>
+      <td style="font-weight:600">${s.n}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--gray-400)">${s.m}</td>
+      <td>
+        <input type="number" min="0" max="20" step="0.5" placeholder="—"
+          style="width:80px;padding:7px 10px;border:1px solid var(--gray-200);border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;text-align:center;transition:border-color .2s"
+          oninput="updateAppr(this,${i})"
+          onfocus="this.style.borderColor='var(--blue-500)'"
+          onblur="this.style.borderColor='var(--gray-200)'">
+      </td>
+      <td><span id="appr-${i}" style="font-size:12px;color:var(--gray-400)">—</span></td>
+    </tr>`).join('');
+}
+
+function updateAppr(el, i) {
+  const v = parseFloat(el.value);
+  const s = document.getElementById('appr-'+i);
+  if (isNaN(v) || el.value === '') { s.innerHTML = '—'; s.style.color = 'var(--gray-400)'; return; }
+  const m = v >= 16 ? ['badge-blue','Très Bien'] : v >= 14 ? ['badge-blue','Bien'] : v >= 12 ? ['badge-orange','Assez Bien'] : v >= 10 ? ['badge-gray','Passable'] : ['badge-red','Insuffisant'];
+  s.innerHTML = `<span class="badge ${m[0]}">${m[1]}</span>`;
+}
+</script>
+</body>
+</html>
